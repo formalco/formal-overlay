@@ -1,0 +1,3 @@
+{
+  formal = ./formal.nix;
+}
