@@ -1,0 +1,27 @@
+name: Test building Nix packages
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        target:
+          - os: Linux x86_64
+            runner: depot-ubuntu-24.04
+          - os: Linux arm64
+            runner: depot-ubuntu-24.04-arm
+    runs-on: ${{ matrix.target.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix build --impure
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1
