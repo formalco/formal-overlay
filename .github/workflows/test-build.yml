@@ -12,9 +12,9 @@ jobs:
       matrix:
         target:
           - os: Linux x86_64
-            runner: depot-ubuntu-24.04
+            runner: ubuntu-24.04
           - os: Linux arm64
-            runner: depot-ubuntu-24.04-arm
+            runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.target.runner }}
     steps:
       - uses: actions/checkout@v4
